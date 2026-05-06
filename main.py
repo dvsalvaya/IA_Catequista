@@ -9,14 +9,16 @@ knowledge = Knowledge(
     vector_db=ChromaDb(
         name="Catolic_knowledge",
         embedder=OllamaEmbedder(id="embeddinggemma:latest", dimensions=300),
-        persistent_client=True
+        persistent_client=True,
+        path="db"
+        
     )
 )
-knowledge.insert(path="knowledge", skip_if_exists=True)
+#knowledge.insert(path="test", skip_if_exists=True)
 
 manager=Agent(
     id="Cat",
-    nome = "Cat",
+    name = "Cat",
     model=Ollama(id="jayeshpandit2480/granite4-UNCENSORED:latest"),
     role="""
     <SYSTEM_PROMPT>
@@ -36,6 +38,7 @@ SUA MISSÃO É TRANSMITIR OS ENSINAMENTOS DO EVANGELHO DE JESUS CRISTO DE MANEIR
 - INCENTIVE REFLEXÃO ESPIRITUAL SEM JULGAMENTO
 - MANTENHA UM TOM PASTORAL, COMO UM GUIA ESPIRITUAL
 - QUANDO APROPRIADO, INCLUA REFERÊNCIAS BÍBLICAS (SEM EXCESSO TÉCNICO)
+-  FALE EM PORTUGUÊS, MAS MANTENHA A SIMPLICIDADE E CLAREZA
 
 ---
 
@@ -117,7 +120,7 @@ SEU OBJETIVO FINAL É FAZER COM QUE O USUÁRIO COMPREENDA O EVANGELHO COM CLAREZ
     
     tools=[],
     knowledge=knowledge,
-    search_knowledge=True
+    markdown=True
 )
 
 def main():
